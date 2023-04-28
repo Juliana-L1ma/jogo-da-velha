@@ -1,135 +1,139 @@
-//inicializa as casas com nove para sabermos que não foi clicada
+//Inicializa as casas com nove para sabermos que nõ foi clicado
 var casas = [9, 9, 9, 9, 9, 9, 9, 9, 9];
-
-//indica a vez do jogar -(1)xis (-1)bola
+//Indica a vez do jogador - (1) xis (-1) bola
 var vez = 1;
-
-//conta quantos cliques foram dados durante o jogo
-var contaclique = 0;
-
-//placar
+//Conta quantos cliques foram dados durante o jogo
+var contaclique;
+//Placar
 var iPontosX = 0;
 var iPontosO = 0;
 var iPontosV = 0;
-var sResposta = "";
+var sResposta="";
 
-//funcao que verifiac as jogadas
-function verifica(casa) {
-    //verifica se a casa não foi clicada
-    if (casas[casa] == 9) {
-        //modifica de 9 para o valor do jogador da vez
-        casas[casa] = vez;
-        //se o jogador da vez for 1 coloca o desenho do xis
-        if (vez == 1) {
-            document.getElementById("img" + casa).src = "img/xis.png";
-            //se o jogador da vez for - coloca a boliha
-        } else {
-            document.getElementById("img" + casa).src = "img/pixarball.png";
+//Função que verifica as jogadas
+function verifica(casa){
+    //Verifica se a casa não foi clicada
+    if(casas[casa]==9){
+        //Modifica de 9 para o valor do jogador da vez
+        casas[casa]=vez;
+        //Se o jogador da vez for 1, coloca o desenho do xis
+        if(vez==1){
+            document.getElementById("img"+casa).src="/jogo-da-velha-main/img/imperio.png";
+            //Se o jogador for -1, coloca o desenho da bola
+        }else{
+            document.getElementById("img"+casa).src="/jogo-da-velha-main/img/rebelde.png";
         }
+        //Inverte o jogador da vez
 
-        //inverte o jogadr da vez
-        vez *= -1;
+        vez*=-1;
         contaclique++;
-        //confere se houve vencedor
+        //Confere se houve vencedor
         confere();
-
     }
 }
 
-function confere() {
+//Função que testa se houve vencedor
+function confere(){
     var i;
-
-    //variável que marca se houve vencedor
+    //Variável que marca se houve ganhador
     var lGanhou = false;
-    //variável que marca se o jogo acabou (todas as casas clicadas)
+    //Variável que marca se o jogo acabou (todas casas clicadas)
     var lAcabou = true;
-
-    //percorre todas as casas para verificar se ainda existe alguma não clicada
-    for (i = 0; i < casas.length; i++) {
-        if (casas[i] == 9) {
-            //se houver sabemos que ainda não deu velha
-            lAcabou = false;
+    //Percorre todas as casas para verificar se ainda existe alguma não clicada
+    for(i=0; i<casas.length;i++){
+        if(casas[i] == 9){
+  //Se houver, sabemos que ainda não deu velha
+  lAcabou= false;
         }
+      
     }
 
-    if (contaclique == 9) {
-        lAcabou = true;
-    }
+    
+//Se a quantidade de cliques forem 9, o jogo acabou
+if(contaclique == 9){
+    lAcabou = true;
+}
+//Realiza a soma de cada coluna, linha e diagonal e coloca o valor num vetor
 
-    var soma = [];
-    soma[0] = casas[0] + casas[1] + casas[2];
-    soma[1] = casas[3] + casas[4] + casas[5];
-    soma[2] = casas[6] + casas[7] + casas[8];
-    soma[3] = casas[0] + casas[3] + casas[6];
-    soma[4] = casas[1] + casas[4] + casas[7];
-    soma[5] = casas[2] + casas[5] + casas[8];
-    soma[6] = casas[0] + casas[4] + casas[8];
-    soma[7] = casas[2] + casas[4] + casas[6];
+var soma = [];
+    soma[0] = casas[0]+ casas[1]+ casas[2];//Linha 1
+    soma[1] = casas[3]+ casas[4]+ casas[5];//Linha 2
+    soma[2] = casas[6]+ casas[7]+ casas[8];//Linha 3
+    soma[3] = casas[0]+ casas[3]+ casas[6];//Coluna1
+    soma[4] = casas[1]+ casas[4]+ casas[7];//Coluna2
+    soma[5] = casas[2]+ casas[5]+ casas[8];//Coluna3
+    soma[6] = casas[0]+ casas[4]+ casas[8];//Diagonal1
+    soma[7] = casas[2]+ casas[4]+ casas[6];//Diagonal2
 
-    //ercorre todos os valores de soma
-    for (i = 0; i < soma.length; i++) {
-        console.log(  soma[i])
-        if (soma[i] == -3) {
-            //se houver sabemos que ainda não deu velha
+    //Percorre todos os valores de soma
+
+
+    for(i=0; i< soma.length;i++){
+        //Se achou uma soma (-3) é porque a bola ganhou
+        if(soma [i] == -3){
             lGanhou = true;
-            sResposta = "Bolinha ganhou";
+            sResposta = "O REBELDE ganhou";
             iPontosO++;
-            document.getElementById("bola").innerHTML = "Pontos o: " + iPontosO;
+            document.getElementById("rebelde").innerHTML="Pontos do Rebelde: " + iPontosO;
             break;
-
-        } else if (soma[i] == 3) {
+            //Se achou uma soma (3) é porque a xis ganhou
+        }else if(soma [i] == 3){
             lGanhou = true;
-            sResposta = "Xis ganhou";
+            sResposta = "O IMPÉRIO ganhou";
             iPontosX++;
-            document.getElementById("xis").innerHTML = "Pontos X: " + iPontosX;
+            document.getElementById("imperio").innerHTML="Pontos do Império: " + iPontosX;
             break;
         }
     }
-
-    //se a bola e nem o xis ganharam mas o jgo acabou deu velha
-    if (lGanhou == false && lAcabou == true) {
-        sResposta = "deu velha";
+    //Se a bola e nem o X ganharam, mas o jogo acabou, é porque deu velha
+    if(lGanhou == false && lAcabou == true){
+        sResposta= "Deu VELHA!!!";
         iPontosV++;
-        document.getElementById("velha").innerHTML = "velha: " + iPontosV;
+        document.getElementById("velha").innerHTML="VELHA...: "+  iPontosV;
     }
 
-    if (lGanhou || lAcabou) {
-        for (i = 0; i < casas.length; i++) {
-            document.getElementById("casa" + i).disable = true;
+    //Se alguém ganhou ou o jogo acabou
+    if(lGanhou || lAcabou){
+        //Desabilita todas as casas para não serem mais clicadas
+        for(i=0; i<casas.length;i++){
+            document.getElementById("casa" + i).disabel = true;
             casas[i] = 0;
         }
-        //exibe o resultado
+        //Exibe o resultado
         document.getElementById("resposta").innerHTML = sResposta;
-        document.getElementById("resposta").style.color = "#fff";
-        document.getElementById("resposta").style.fontSize = "xx-large";
-
+        //Muda a cor da letra
+        document.getElementById("resposta").style.color="#ffc400";
+        //Muda o tamanho do texto
+        document.getElementById("resposta").style.fontSize="xx-large";
+        //Window.confirm(sResposta)
     }
 }
 
-function recomeca() {
-    for (i = 0; i < casas.length; i++) {
-        //não permite arrastar a imagens
-        document.getElementById("img" + i).ondragstart = function () { return false; };
+//Função que recomeça todo o jogo
 
-        //habilita as casas
-        document.getElementById("casa" + i).disable = false;
+function recomeca(){
+    for(i = 0; i<casas.length;i++){
+        //Não permite arrastar a imagem
+        document.getElementById("img"+i).ondragstart = function() {return false; };
+        //Habilita as casas
+        document.getElementById("casa"+i).disabel=false;
+        //Remove as imagens
+        document.getElementById("img"+i).src="";
+        //Volta para a configuralçao original
+        document.getElementById("resposta").innerHTML = "RESULTADO: "
+        document.getElementById("resposta").style.color = "#f5ff00";
+        document.getElementById("resposta").style.fontSize = "large";
 
-        //remove as imagens
-        document.getElementById("img" + i).src = "";
-
-        //volta a configuração orignal
-        document.getElementById("resposta").innerHTML = "Resultado";
-        document.getElementById("resposta").style.color = "#fff";
-        document.getElementById("resposta").style.fontSize = "arge";
-
-
-        //restrura os 9 das casas
         casas[i] = 9;
         lGanhou = false;
         lAcabou = true;
         contaclique = 0;
         vez = 1;
-    }
+    } 
 }
+
+
+
+
 
 

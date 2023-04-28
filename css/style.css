@@ -1,19 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap');
+@import url('https://fonts.cdnfonts.com/css/star-wars');
 body{
     background-color: rgb(45, 32, 49);
+    background-image: url(../img/backgroundc.png);
 }
 
 #jogo{
+    margin-left: 10%;
     width: 603px;
     height: 603px;
     border: solid 3px;
     display: inline-block;
-    float: center;
-    background-color: rgb(173, 150, 182);
+    background-color: rgb(105, 105, 105);
 }
-
+.titulo{
+  font-family: 'Star Wars', sans-serif;
+    text-align: center;
+    color: yellow;
+    padding: 2%;
+}
 #resultado{
-    margin-left: 30px;
+    width: 15%;
+    border-radius: 10%;
+    --background: linear-gradient(to left, #f7ba2b 0%, #ea5358 100%);
+    /* background-color: rgba(128, 128, 128, 0.76); */
+    margin-left: 10%;
     float: left;
+    font-family: 'Rubik', sans-serif;
+    padding: 1%;
+    border-radius: 1rem;
+    overflow: visible;
+    background: #f7ba2b;
+    background: var(--background);
+    position: relative;
+    z-index: 1;
+}
+/*-------------------------------------*/
+  
+.conteudoResultado{
+    background-color: rgba(128, 128, 128, 0.76);
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    padding: 10%;
+    color: rgb(255, 255, 255);
+ border-radius: .7rem;
 }
 #resposta{
     font-size: 30;
@@ -29,8 +61,6 @@ body{
 img{
     margin-left: 25%;
     margin-top: 20%;
-    height: 100px;
-    width: 100px;
 }
 .casa{
     width: 200px;
@@ -45,26 +75,34 @@ img{
     font-weight: bold;
 }
 
-input[type=button], input[type=submit], input[type=reset]{
-    background-color: rgb(161, 53, 204);
-    background-image: linear-gradient(to bottom, #9056d3, #7918e9);
-    border-radius: 20px;
+
+
+/*--------------------------------------*/
+#btnNovo{
     color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 40px;
-    font-weight: 100;
-    padding: 40px;
-    text-decoration: none;
-    box-shadow: 1px 1px 20px 0px #000000;
-    text-shadow: 1px 1px 20px #000000;
-    border: none;
-    display: inline-block;
+    width: fit-content;
+    min-width: 100px;
+    height: 45px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 2.5px solid #00000091;
+    box-shadow: 15px 15px 40px -20px black;
     cursor: pointer;
+    background: linear-gradient(to top, #00154c, #12376e, #23487f);
+    transition: all 0.2s ease-in-out 0ms;
+    user-select: none;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Rubik', sans-serif;
+}
+#btnNovo:hover{
+    background-color: #F2F2F2;
+  box-shadow: 0px 0px 20px -18px;
+}
+#btnNovo:active{
+    transform: scale(0.95);
+}
+#btnNovoJogo, #velha{
+  font-family: 'Rubik', sans-serif;
 }
 
-input[type=button]:hover{
-    background: rgb(78, 11, 104);
-    background-image: linear-gradient(to bottom, #862cee, #6d00eb);
-    text-decoration: none;
-}
 
